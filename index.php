@@ -20,11 +20,41 @@ use \Desertlion\semanticsimilarity as SS;
 <body>
 	<div id="container">
 		<?php 
-		$word = new SS('memory'); 
-		$kata[0][wordid] = $word->getWordId();
-		$kata[0][synsetid] = $word->getSynsetId($kata[0][wordid]);
-		$kata[0][definition] = $word->getDefinition($kata[0][synsetid]);
-		$kata[0][hypernim] = $word->getHypernim($kata[0][wordid]);
+		function waktunyo()
+		{
+			$mtime = microtime(); 
+		    $mtime = explode(" ",$mtime); 
+		    $mtime = $mtime[1] + $mtime[0]; 
+		    return $mtime;
+		}
+
+		$starttime = waktunyo();
+		$word[0] = new SS('memory'); 
+		$kata[0][wordid] = $word[0]->getWordId();
+		$kata[0][synsetid] = $word[0]->getSynsetId($kata[0][wordid]);
+		$kata[0][hypernim] = $word[0]->getHypernim($kata[0][wordid]);
+
+		$kata2 = array('memory','flashdisk','computer','earphone','printer','headphone','speaker','headset','power','case');
+		$i=1;
+		foreach($kata2 as $Kata):
+			$word[$i] = new SS($Kata);
+			$kata[$i][wordid] = $word[$i]->getWordId();
+			if(count($kata[$i][wordid])>0):
+				$kata[$i][synsetid] = $word[$i]->getSynsetId($kata[$i][wordid]);
+				$kata[$i][hypernim] = $word[$i]->getHypernim($kata[$i][wordid]);
+			else:
+				$kata[$i][hypernim] = array();
+			endif;
+			$i++;
+		endforeach;
+		?>
+		<pre>
+			<?php var_dump($kata); ?>
+		</pre>
+		<?php
+		$endtime = waktunyo(); 
+		$totaltime = ($endtime - $starttime); 
+		echo "Execution time ".number_format($totaltime,7,",",".")." seconds"; 
 		?>
 		<table>
 			<tr>
