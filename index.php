@@ -26,7 +26,6 @@ use \Desertlion\semanticsimilarity as SS;
 		$kata[0][definition] = $word->getDefinition($kata[0][synsetid]);
 		$kata[0][hypernim] = $word->getHypernim($kata[0][wordid]);
 		?>
-		<pre><?php var_dump($kata2[0][hypernim]); ?></pre>
 		<table>
 			<tr>
 				<td width="30%">Kata acuan</td>
